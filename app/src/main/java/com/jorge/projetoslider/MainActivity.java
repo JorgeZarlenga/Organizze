@@ -2,11 +2,15 @@ package com.jorge.projetoslider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
+import com.jorge.projetoslider.activity.CadastroActivity;
+import com.jorge.projetoslider.activity.LoginActivity;
 
 public class MainActivity extends IntroActivity {
 
@@ -46,6 +50,12 @@ public class MainActivity extends IntroActivity {
                 .build()
         );
 
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_cadastro)
+                .build()
+        );
+
         /*
         setButtonBackVisible(false);
         setButtonNextVisible(false);
@@ -75,5 +85,15 @@ public class MainActivity extends IntroActivity {
         );
 
          */
+    }
+
+    public void btEntrar(View view)
+    {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void btCadastrar(View view)
+    {
+        startActivity(new Intent(this, CadastroActivity.class));
     }
 }
