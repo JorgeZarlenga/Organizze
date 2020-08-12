@@ -15,6 +15,9 @@ public class MainActivity extends IntroActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
+        setButtonBackVisible(false);
+        setButtonNextVisible(false);
+
         // Para criar o slider usando fragment:
         // Criar new resource file em layout (intro_1), com root como LinearLayout
         // Fazer o mesmo com intro_2
@@ -28,6 +31,18 @@ public class MainActivity extends IntroActivity {
         addSlide(new FragmentSlide.Builder()
                 .background(android.R.color.white)
                 .fragment(R.layout.intro_2)
+                .build()
+        );
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_3)
+                .build()
+        );
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_4)
                 .build()
         );
 
