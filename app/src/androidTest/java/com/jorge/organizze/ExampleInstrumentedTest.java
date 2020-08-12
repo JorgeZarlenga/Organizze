@@ -1,4 +1,4 @@
-package com.jorge.projetoslider;
+package com.jorge.organizze;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.jorge.projetoslider", appContext.getPackageName());
+        assertEquals("com.jorge.organizze", appContext.getPackageName());
     }
 }

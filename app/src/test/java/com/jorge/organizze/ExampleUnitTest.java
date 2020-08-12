@@ -1,4 +1,4 @@
-package com.jorge.projetoslider;
+package com.jorge.organizze;
 
 import org.junit.Test;
 

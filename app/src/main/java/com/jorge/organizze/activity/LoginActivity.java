@@ -1,10 +1,10 @@
-package com.jorge.projetoslider.activity;
+package com.jorge.organizze.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.jorge.projetoslider.R;
+import com.jorge.organizze.R;
 
 public class LoginActivity extends AppCompatActivity {
 
