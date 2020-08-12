@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
+import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 
 public class MainActivity extends IntroActivity {
@@ -14,6 +15,23 @@ public class MainActivity extends IntroActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
+        // Para criar o slider usando fragment:
+        // Criar new resource file em layout (intro_1), com root como LinearLayout
+        // Fazer o mesmo com intro_2
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_1)
+                .build()
+        );
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_2)
+                .build()
+        );
+
+        /*
         setButtonBackVisible(false);
         setButtonNextVisible(false);
 
@@ -40,5 +58,7 @@ public class MainActivity extends IntroActivity {
                 .background(android.R.color.holo_orange_light)
                 .build()
         );
+
+         */
     }
 }
