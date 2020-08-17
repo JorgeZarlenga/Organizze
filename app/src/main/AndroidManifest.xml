@@ -12,7 +12,7 @@
         <activity android:name="com.jorge.organizze.activity.CadastroActivity"></activity>
         <activity android:name="com.jorge.organizze.activity.LoginActivity" />
         <activity
-            android:name="com.jorge.organizze.MainActivity"
+            android:name="com.jorge.organizze.activity.MainActivity"
             android:theme="@style/Theme.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
