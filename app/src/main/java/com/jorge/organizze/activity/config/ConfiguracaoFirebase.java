@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ConfiguracaoFirebase {
 
     private static FirebaseAuth autenticacao; // static define que o atributo será o mesmo
-    // independente de quantas instância se crie da classe
+    // independente de quantas instâncias se crie da classe
 
     // Retorna a instância do FirebaseAuth:
     public static FirebaseAuth getFirebaseAutenticacao()

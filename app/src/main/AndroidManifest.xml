@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.jorge.organizze.activity.CadastroActivity"></activity>
-        <activity android:name="com.jorge.organizze.activity.LoginActivity" />
         <activity
-            android:name="com.jorge.organizze.activity.MainActivity"
+            android:name=".activity.activity.PrincipalActivity"
+            android:label="@string/title_activity_principal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.activity.CadastroActivity" />
+        <activity android:name=".activity.activity.LoginActivity" />
+        <activity
+            android:name=".activity.activity.MainActivity"
             android:theme="@style/Theme.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

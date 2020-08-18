@@ -1,4 +1,4 @@
-package com.jorge.organizze.activity;
+package com.jorge.organizze.activity.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,7 +62,7 @@ public class CadastroActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(CadastroActivity.this, "Preencha o email!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastroActivity.this, "Preencha a senha!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
