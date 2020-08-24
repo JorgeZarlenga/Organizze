@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:18.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.heinrichreimersoftware:material-intro:master-SNAPSHOT'
+    implementation 'com.github.clans:fab:1.6.4'
 }
