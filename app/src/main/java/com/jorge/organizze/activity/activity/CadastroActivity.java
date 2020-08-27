@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.jorge.organizze.R;
 import com.jorge.organizze.activity.config.ConfiguracaoFirebase;
+import com.jorge.organizze.activity.helper.Base64Custom;
 import com.jorge.organizze.activity.model.Usuario;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -89,7 +92,12 @@ public class CadastroActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) { // Para verificar o sucesso do cadastro
                 if (task.isSuccessful()) {
 
+                    String idUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    usuario.setIdUsuario(idUsuario);
+                    usuario.salvar();
+                    Log.e("SALVAMENTO", "Salvamento sucesso");
                     finish(); // Usado para fechar e manter uma validação automática
+
 
                 } else {
                     String excecao = "";
