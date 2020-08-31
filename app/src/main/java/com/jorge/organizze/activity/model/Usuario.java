@@ -12,6 +12,8 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha; // Desconsidera para salvar no Firebase (Exclude)
+    private Double receitaTotal = 0.00;
+    private Double despesaTotal = 0.00;
 
     // Gerar construtor vazio para configurar os atributos diretamente no objeto, sem passar os
     // parâmetros para o construtor
@@ -27,13 +29,26 @@ public class Usuario {
         firebase.child("usuarios")
                 .child(this.idUsuario)
                 .setValue(this); // This identifica o objeto Usuario
-        Log.e("SALVAMENTO2", "Salvamento sucesso2");
     }
 
+    public Double getReceitaTotal() {
+        return receitaTotal;
+    }
 
-    // Gerar getter and setter:
+    public void setReceitaTotal(Double receitaTotal) {
+        this.receitaTotal = receitaTotal;
+    }
 
-    @Exclude
+    public Double getDespesaTotal() {
+        return despesaTotal;
+    }
+
+    public void setDespesaTotal(Double despesaTotal) {
+        this.despesaTotal = despesaTotal;
+    }
+// Gerar getter and setter:
+
+    @Exclude // Anotação do Firebase
     public String getIdUsuario() {
         return idUsuario;
     }
@@ -58,7 +73,7 @@ public class Usuario {
         this.email = email;
     }
 
-    @Exclude
+    @Exclude // Anotação do Firebase
     public String getSenha() {
         return senha;
     }
