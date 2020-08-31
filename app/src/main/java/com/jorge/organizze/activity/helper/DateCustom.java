@@ -11,4 +11,17 @@ public class DateCustom
         String dataString = simpleDateFormat.format(data); // Aplica o padrão
         return dataString;
     }
+
+    // Método que transforma a data somente em números (mês e ano):
+
+    public static String mesAnoDataEscolhida(String data)
+    {
+        String retornoData[] = data.split("/"); // Separa os valores e os coloca em índices de array
+        String dia = retornoData[0];
+        String mes = retornoData[1];
+        String ano = retornoData[2];
+
+        String mesAno = mes + ano; // Concatenando o mês e ano
+        return mesAno;
+    }
 }
