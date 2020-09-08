@@ -3,7 +3,6 @@ package com.jorge.organizze.activity.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,7 +35,7 @@ public class DespesasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_despesas);
 
-        campoValor = findViewById(R.id.editValor);
+        campoValor = findViewById(R.id.editValorReceita);
         campoData = findViewById(R.id.editData);
         campoCategoria = findViewById(R.id.editCategoria);
         campoDescricao = findViewById(R.id.editDescricao);

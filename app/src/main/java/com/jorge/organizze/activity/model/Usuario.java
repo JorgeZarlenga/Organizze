@@ -8,10 +8,10 @@ import com.jorge.organizze.activity.config.ConfiguracaoFirebase;
 
 public class Usuario {
 
-    private String idUsuario; // Desconsidera para salvar no Firebase (Exclude)
+    private String idUsuario; // Desconsidera para salvar no Firebase (@Exclude)
     private String nome;
     private String email;
-    private String senha; // Desconsidera para salvar no Firebase (Exclude)
+    private String senha; // Desconsidera para salvar no Firebase (@Exclude)
     private Double receitaTotal = 0.00;
     private Double despesaTotal = 0.00;
 
