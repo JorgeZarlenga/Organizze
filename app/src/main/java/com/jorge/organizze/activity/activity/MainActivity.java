@@ -10,6 +10,7 @@ import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.jorge.organizze.R;
 import com.jorge.organizze.activity.config.ConfiguracaoFirebase;
 
+// Adicionar a linha tile size para cortar a altura do componente
 public class MainActivity extends IntroActivity {
 
     private FirebaseAuth autenticacao;
