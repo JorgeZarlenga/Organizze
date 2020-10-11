@@ -14,6 +14,7 @@ public class Movimentacao
     private String descricao;
     private String tipo;
     private double valor;
+    private String key;
 
     // Construtor vazio:
 
@@ -33,6 +34,14 @@ public class Movimentacao
                 .child(mesAno)
                 .push() // Criação do id único do Firebase
                 .setValue(this); // Salva todos os dados
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getData() {

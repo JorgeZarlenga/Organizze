@@ -1,5 +1,6 @@
 package com.jorge.organizze.activity.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +57,7 @@ public class PrincipalActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovimentoAdapter movimentoAdapter;
     private List<Movimentacao> listaMovimentos = new ArrayList<>();
+    private Movimentacao movimentacao;
     private DatabaseReference movimentacaoRef;
     private String mesAnoSelecionado;
 
@@ -102,6 +106,7 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 //Log.i("swipe", "Item foi arrastado");
+                excluirMovimentacao(viewHolder); // Para associar a posição do elemento
             }
         };
 
@@ -109,6 +114,48 @@ public class PrincipalActivity extends AppCompatActivity {
 
         new ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView);
     }
+
+    public void excluirMovimentacao(final RecyclerView.ViewHolder viewHolder)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        // Configurando o AlertDialog:
+        alertDialog.setTitle("Excluir movimentação da conta");
+        alertDialog.setMessage("Você tem certeza que deseja realmente exlcluir essa movimentação da sua conta?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int position = viewHolder.getAdapterPosition();
+                movimentacao = listaMovimentos.get(position);
+
+                String emailUsuario = autenticacao.getCurrentUser().getEmail();
+                String idUsuario = Base64Custom.codificarBase64(emailUsuario);
+
+                // Movimentação de referência:
+                movimentacaoRef = firebaseRef.child("movimentacao")
+                        .child(idUsuario)
+                        .child(mesAnoSelecionado);
+
+                movimentacaoRef.child(movimentacao.getKey()).removeValue();
+                movimentoAdapter.notifyItemRemoved(position);
+
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(PrincipalActivity.this, "Cancelado", Toast.LENGTH_SHORT).show();
+                movimentoAdapter.notifyDataSetChanged();
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
     public void recuperarMovimentacoes()
     {
         String emailUsuario = autenticacao.getCurrentUser().getEmail();
@@ -127,7 +174,7 @@ public class PrincipalActivity extends AppCompatActivity {
                 for(DataSnapshot dados: dataSnapshot.getChildren()) // Recupera todos os filhos, percorrendo-os
                 {
                     Movimentacao movimentacao = dados.getValue(Movimentacao.class); // Isso recupera uma movimentação inteira a cada iteração
-
+                    movimentacao.setKey(dados.getKey());
                     listaMovimentos.add(movimentacao);
                 }
 
