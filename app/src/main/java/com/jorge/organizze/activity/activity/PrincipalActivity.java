@@ -140,7 +140,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
                 movimentacaoRef.child(movimentacao.getKey()).removeValue();
                 movimentoAdapter.notifyItemRemoved(position);
-
+                atualizarSaldo();
             }
         });
 
@@ -154,6 +154,27 @@ public class PrincipalActivity extends AppCompatActivity {
 
         AlertDialog alert = alertDialog.create();
         alert.show();
+    }
+
+    public void atualizarSaldo()
+    {
+        String emailUsuario = autenticacao.getCurrentUser().getEmail();
+        String idUsuario = Base64Custom.codificarBase64(emailUsuario);
+        usuarioRef = firebaseRef.child("usuarios").child(idUsuario);
+
+        if(movimentacao.getTipo().equals("r"))
+        {
+            receitaTotal = receitaTotal - movimentacao.getValor();
+
+            usuarioRef.child("receitaTotal").setValue(receitaTotal);
+        }
+
+        if(movimentacao.getTipo().equals("d"))
+        {
+            despesaTotal = despesaTotal - movimentacao.getValor();
+
+            usuarioRef.child("despesaTotal").setValue(despesaTotal);
+        }
     }
 
     public void recuperarMovimentacoes()
@@ -209,7 +230,7 @@ public class PrincipalActivity extends AppCompatActivity {
                 String resultadoFormatado = decimalFormat.format(resumoUsuario);
 
                 textoSaudacao.setText("Olá, " + usuario.getNome());
-                textoSaldo.setText(resultadoFormatado);
+                textoSaldo.setText("R$" + resultadoFormatado);
             }
 
             @Override
