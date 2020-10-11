@@ -53,7 +53,7 @@ public class PrincipalActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MovimentoAdapter movimentoAdapter;
     private List<Movimentacao> listaMovimentos = new ArrayList<>();
-    private DatabaseReference movimentacaoRef = ConfiguracaoFirebase.getFirebaseDatabase();
+    private DatabaseReference movimentacaoRef;
     private String mesAnoSelecionado;
 
     @Override
@@ -86,11 +86,11 @@ public class PrincipalActivity extends AppCompatActivity {
     {
         String emailUsuario = autenticacao.getCurrentUser().getEmail();
         String idUsuario = Base64Custom.codificarBase64(emailUsuario);
-        // Movimentação de referência:
 
-        movimentacaoRef.child("movimentacao")
-                .child(idUsuario)
-                .child(mesAnoSelecionado);
+        // Movimentação de referência:
+        movimentacaoRef = firebaseRef.child("movimentacao")
+                                     .child(idUsuario)
+                                     .child(mesAnoSelecionado);
 
         valueEventListenerMovimentacoes = movimentacaoRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -101,8 +101,10 @@ public class PrincipalActivity extends AppCompatActivity {
                 {
                     Movimentacao movimentacao = dados.getValue(Movimentacao.class); // Isso recupera uma movimentação inteira a cada iteração
 
-                    Log.i("dadosRetorno", "dados" + movimentacao.getCategoria());
+                    listaMovimentos.add(movimentacao);
                 }
+
+                movimentoAdapter.notifyDataSetChanged(); // Método que notifica que os dados foram atualizados
             }
 
             @Override
@@ -182,11 +184,15 @@ public class PrincipalActivity extends AppCompatActivity {
         calendarView.setTitleMonths(meses); // Array do tipo char sequence
 
         CalendarDay dataAtual = calendarView.getCurrentDate();
-        mesAnoSelecionado = String.valueOf(dataAtual.getMonth() + "" + dataAtual.getYear()); // Convertendo um inteiro para string
+        String mesSelecionado = String.format("%02d", dataAtual.getMonth()); // % é caractere coringa
+        mesAnoSelecionado = String.valueOf(mesSelecionado + "" + dataAtual.getYear()); // Convertendo um inteiro para string
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mesAnoSelecionado = String.valueOf(date.getMonth() + "" + date.getYear()); // Convertendo um inteiro para string
+                String mesSelecionado = String.format("%02d", date.getMonth()); // % é caractere coringa
+                mesAnoSelecionado = String.valueOf(mesSelecionado + "" + date.getYear()); // Convertendo um inteiro para string
+                movimentacaoRef.removeEventListener(valueEventListenerMovimentacoes);
+                recuperarMovimentacoes(); // A cada mudança de mês, recupera as movimentações deste (mas anexa um evento para as movimentações, por isso o removeListener)
             }
         });
     }

@@ -43,6 +43,7 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.MyVi
         holder.textAdapterTitulo.setText(movimentacao.getDescricao());
         holder.textAdapterValor.setText(String.valueOf(movimentacao.getValor())); // Fazendo o casting de texto para String
         holder.textAdapterCategoria.setText(movimentacao.getCategoria());
+        holder.textAdapterValor.setTextColor(context.getResources().getColor(R.color.colorAccentReceita));
 
         if(movimentacao.getTipo().equals("d"))
         {
