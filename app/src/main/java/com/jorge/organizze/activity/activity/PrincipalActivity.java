@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,6 +72,7 @@ public class PrincipalActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         recyclerView = findViewById(R.id.recyclerMovimentos);
         configurarCalendarView();
+        swipe();
 
         // Configuração do Adapter:
         movimentoAdapter = new MovimentoAdapter(listaMovimentos, this);
@@ -82,6 +84,31 @@ public class PrincipalActivity extends AppCompatActivity {
         recyclerView.setAdapter(movimentoAdapter);
     }
 
+    public void swipe()
+    {
+        ItemTouchHelper.Callback itemTouch = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) { // Configura como deve ser o movimento
+                int dragFlags = ItemTouchHelper.ACTION_STATE_IDLE; // Desabilita o drag multidirecional
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags(dragFlags, swipeFlags); //2 parâmetros: flags de drag e de swipe
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //Log.i("swipe", "Item foi arrastado");
+            }
+        };
+
+        // Anexando ao RecyclerView:
+
+        new ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView);
+    }
     public void recuperarMovimentacoes()
     {
         String emailUsuario = autenticacao.getCurrentUser().getEmail();
